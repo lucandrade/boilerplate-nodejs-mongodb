@@ -1,0 +1,28 @@
+{
+    "extends": "airbnb",
+    "globals": {
+        "expect": true,
+        "request": true,
+        "app": true,
+        "td": true,
+        "Joi": true,
+        "JoiAssert": true,
+        "jwt": true
+    },
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true,
+        "mocha": true
+    },
+    "rules": {
+        "arrow-parens": ["error", "as-needed"],
+        "no-console": 0,
+        "indent": [2,4],
+        "import/no-extraneous-dependencies": [
+            "error", {
+                "devDependencies": true
+            }
+        ]
+    }
+}
