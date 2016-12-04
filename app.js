@@ -18,6 +18,6 @@ app.use(helmet());
 app.auth = auth;
 
 routes(app);
-app.set('port', 7000);
+app.set('port', app.config.port);
 
 export default app;
