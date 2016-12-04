@@ -2,17 +2,25 @@ import UsersController from '../controllers/users';
 
 export default app => {
     const controller = new UsersController(app.datasource.models.User);
+    app.route('/auth')
+        .post((req, res) => {
+            controller.login(req.body.username, req.body.password)
+                .then(result => {
+                    res.status(result.statusCode)
+                        .send(result.data);
+                });
+        });
     app.route('/users')
-        // .all(app.auth.authenticate())
-        .get((req, res) => {
-            controller.getAll()
+        .post((req, res) => {
+            controller.create(req.body)
                 .then(result => {
                     res.status(result.statusCode)
                         .send(result.data);
                 });
         })
-        .post((req, res) => {
-            controller.create(req.body)
+        .all(app.auth.authenticate())
+        .get((req, res) => {
+            controller.getAll()
                 .then(result => {
                     res.status(result.statusCode)
                         .send(result.data);

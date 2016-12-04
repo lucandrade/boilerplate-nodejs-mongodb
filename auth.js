@@ -12,7 +12,7 @@ export default app => {
             .then(user => {
                 if (user) {
                     return done(null, {
-                        id: user.id,
+                        id: user._id,
                         email: user.email,
                     });
                 }
@@ -22,7 +22,6 @@ export default app => {
     });
 
     passport.use(strategy);
-
     return {
         initialize: () => passport.initialize(),
         authenticate: () => passport.authenticate('jwt', app.config.jwt.session),

@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-sequelize",
+  "name": "nodejs-mongodb",
   "version": "1.0.0",
   "description": "Nodejs with babel, express, mongoose, tests and jwt passport authentication",
   "main": "index.js",

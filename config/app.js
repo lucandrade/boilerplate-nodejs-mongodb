@@ -8,6 +8,6 @@ export default {
     },
     jwt: {
         secret: process.env.JWT_SECRET || 'sdfweq7r16078nct8y',
-        session: { session: true },
+        session: { session: false },
     },
 };

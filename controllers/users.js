@@ -1,4 +1,6 @@
 import HttStatus from 'http-status';
+import jwt from 'jwt-simple';
+import config from '../config/app';
 
 const defaultResponse = (data, statusCode = HttStatus.OK) => ({
     data,
@@ -14,6 +16,24 @@ export default class UsersController {
         this.model = User;
     }
 
+    login(username, pass) {
+        return this.model.findOne({
+            email: username,
+        }).then(user => {
+            if (user && user.comparePassword(pass)) {
+                const payload = {
+                    id: user._id,
+                    email: user.email,
+                };
+                return defaultResponse({
+                    token: `JWT ${jwt.encode(payload, config.jwt.secret)}`,
+                });
+            }
+
+            return errorResponse(HttStatus['401'], HttStatus.UNAUTHORIZED);
+        });
+    }
+
     getAll() {
         return this.model.find({})
             .then(res => defaultResponse(res))
@@ -21,11 +41,7 @@ export default class UsersController {
     }
 
     getById(id) {
-        return this.model.findOne({
-            where: {
-                id,
-            },
-        })
+        return this.model.findById(id)
         .then(res => defaultResponse(res))
         .catch(err => errorResponse(err.message));
     }

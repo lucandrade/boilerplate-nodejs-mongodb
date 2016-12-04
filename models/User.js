@@ -38,7 +38,8 @@ UserSchema.pre('save', function (next) {  // eslint-disable-line
     }
 });
 
-UserSchema.methods.comparePassword = password =>
-    bcrypt.compareSync(password, this.rassword);
+UserSchema.methods.comparePassword = function comparePassword(password) {
+    return bcrypt.compareSync(password, this.password);
+};
 
 export default mongoose.model('User', UserSchema);
