@@ -10,7 +10,7 @@ const loadModels = () => {
     fs.readdirSync(dir).forEach(file => {
         const modelDir = path.join(dir, file);
         const model = require(modelDir); // eslint-disable-line
-        models[model.default.modelName] = model;
+        models[model.default.modelName] = model.default;
     });
     return models;
 };
@@ -21,7 +21,8 @@ export default app => {
         database = {
             models: loadModels(),
         };
-        mongoose.connect(`mongodb://${config.host}:${config.port}/${config.name}`);
+        mongoose.Promise = global.Promise;
+        mongoose.connect(`mongodb://${config.host}:${config.port}/${process.env.NODE_ENV}_${config.name}`);
         database.models = loadModels();
     }
     return database;

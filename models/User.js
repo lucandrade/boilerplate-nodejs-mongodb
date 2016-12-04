@@ -5,7 +5,10 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     name: {
         type: String,
-        unique: true,
+        required: true,
+    },
+    email: {
+        type: String,
         required: true,
     },
     password: {
@@ -14,9 +17,9 @@ const UserSchema = new Schema({
     },
 });
 
-UserSchema.pre('save', next => {  // eslint-disable-line
+UserSchema.pre('save', function (next) {  // eslint-disable-line
     const user = this;
-    if (this.isModified('password') || this.isNew) {
+    if (user.isModified('password') || user.isNew) {
         bcrypt.genSalt(10, (err, salt) => {  // eslint-disable-line
             if (err) {
                 return next(err);
