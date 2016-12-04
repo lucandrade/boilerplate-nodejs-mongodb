@@ -47,53 +47,25 @@ describe('Routes Users', () => {
                 });
         });
     });
-    //
-    // describe('Route POST /users', () => {
-    //     it('should create a user', done => {
-    //         const newUser = {
-    //             id: 2,
-    //             name: 'newUser',
-    //             password: 'senha',
-    //             email: 'email@email.com',
-    //         };
-    //
-    //         request
-    //             .post('/users')
-    //             .set('Authorization', `JWT ${token}`)
-    //             .send(newUser)
-    //             .end((err, res) => {
-    //                 expect(res.body.id).to.be.equal(newUser.id);
-    //                 expect(res.body.name).to.be.equal(newUser.name);
-    //                 done(err);
-    //             });
-    //     });
-    // });
-    //
-    // describe('Route PUT /users/{id}', () => {
-    //     it('should update a user', done => {
-    //         defaultUser.name = 'Teste';
-    //         request
-    //             .put(`/users/${defaultUser.id}`)
-    //             .set('Authorization', `JWT ${token}`)
-    //             .send(defaultUser)
-    //             .end((err, res) => {
-    //                 expect(res.body.id).to.be.equal(defaultUser.id);
-    //                 expect(res.body.name).to.be.equal(defaultUser.name);
-    //                 done(err);
-    //             });
-    //     });
-    // });
-    //
-    // describe('Route DELETE /users/{id}', () => {
-    //     it('should delete a user', done => {
-    //         request
-    //             .delete(`/users/${defaultUser.id}`)
-    //             .set('Authorization', `JWT ${token}`)
-    //             .send(defaultUser)
-    //             .end((err, res) => {
-    //                 expect(res.statusCode).to.be.equal(204);
-    //                 done(err);
-    //             });
-    //     });
-    // });
+
+    describe('Route POST /users', () => {
+        it('should create a user', done => {
+            const newUser = {
+                _id: mongoose.Types.ObjectId(),
+                name: 'newUser',
+                password: 'senha',
+                email: 'email@email.com',
+            };
+
+            request
+                .post('/users')
+                .set('Authorization', `JWT ${token}`)
+                .send(newUser)
+                .end((err, res) => {
+                    expect(res.body._id).to.be.equal(newUser._id.toString());
+                    expect(res.body.name).to.be.equal(newUser.name);
+                    done(err);
+                });
+        });
+    });
 });
