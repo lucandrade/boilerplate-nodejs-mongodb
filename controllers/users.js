@@ -53,12 +53,10 @@ export default class UsersController {
     }
 
     update(id, data) {
-        return this.model.update(data, {
-            where: {
-                id,
-            },
+        return this.model.findByIdAndUpdate(id, {
+            $set: data,
         })
-            .then(() => this.model.findOne({ where: { id } }))
+            .then(() => this.model.findById(id))
             .then(res => defaultResponse(res))
             .catch(err => errorResponse(err.message, HttStatus.UNPROCESSABLE_ENTITY));
     }

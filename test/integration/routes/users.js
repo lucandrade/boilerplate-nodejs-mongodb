@@ -85,4 +85,19 @@ describe('Routes Users', () => {
                 });
         });
     });
+
+    describe('Route PUT /users/{id}', () => {
+        it('should update a user', done => {
+            defaultUser.name = 'Teste';
+            request
+                .put(`/users/${defaultUser._id}`)
+                .set('Authorization', `JWT ${token}`)
+                .send(defaultUser)
+                .end((err, res) => {
+                    expect(res.body._id).to.be.equal(defaultUser._id.toString());
+                    expect(res.body.name).to.be.equal(defaultUser.name);
+                    done(err);
+                });
+        });
+    });
 });
