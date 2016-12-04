@@ -68,4 +68,21 @@ describe('Routes Users', () => {
                 });
         });
     });
+
+    describe('Route POST /auth', () => {
+        it('should create a user', done => {
+            const authorization = {
+                username: defaultUser.email,
+                password: defaultUser.password,
+            };
+
+            request
+                .post('/auth')
+                .send(authorization)
+                .end((err, res) => {
+                    assert(res.body.token.indexOf('JWT ') >= 0, 'is ok');
+                    done(err);
+                });
+        });
+    });
 });

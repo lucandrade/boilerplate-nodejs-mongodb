@@ -2,6 +2,7 @@
     "extends": "airbnb",
     "globals": {
         "expect": true,
+        "assert": true,
         "request": true,
         "app": true,
         "td": true,
