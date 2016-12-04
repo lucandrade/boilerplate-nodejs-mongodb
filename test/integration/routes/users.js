@@ -100,4 +100,17 @@ describe('Routes Users', () => {
                 });
         });
     });
+
+    describe('Route DELETE /users/{id}', () => {
+        it('should delete a user', done => {
+            request
+                .delete(`/users/${defaultUser._id}`)
+                .set('Authorization', `JWT ${token}`)
+                .send(defaultUser)
+                .end((err, res) => {
+                    expect(res.statusCode).to.be.equal(204);
+                    done(err);
+                });
+        });
+    });
 });
