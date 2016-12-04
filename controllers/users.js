@@ -63,7 +63,7 @@ export default class UsersController {
 
     delete(id) {
         return this.model.remove({
-            id,
+            _id: id,
         })
             .then(() => defaultResponse('', HttStatus.NO_CONTENT))
             .catch(err => errorResponse(err.message, HttStatus.UNPROCESSABLE_ENTITY));
